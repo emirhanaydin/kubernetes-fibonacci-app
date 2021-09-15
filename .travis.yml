@@ -18,3 +18,14 @@ after_success:
   - docker push $DOCKER_ID/fibonacci-app-api
   - docker push $DOCKER_ID/fibonacci-app-worker
   - docker push $DOCKER_ID/fibonacci-app-server
+
+deploy:
+  provider: elasticbeanstalk
+  region: 'eu-central-1'
+  app: 'Docker Fibonacci'
+  env: 'Dockerfibonacci-env'
+  bucket: 'elasticbeanstalk-eu-central-1-399087810341'
+  on:
+    branch: main
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
