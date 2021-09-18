@@ -1,5 +1,5 @@
 [submodule "docker-fibonacci-client"]
-	path = client
+	path = web
 	url = https://github.com/emirhanaydin/docker-fibonacci-client.git
 [submodule "docker-fibonacci-server"]
 	path = api
