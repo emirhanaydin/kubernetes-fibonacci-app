@@ -1,13 +1,13 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: ${DOMAIN_NAME_DASHED}
+  name: emirhanaydin-com
   namespace: default
 spec:
-  secretName: ${DOMAIN_NAME_DASHED}-tls
+  secretName: emirhanaydin-com-tls
   issuerRef:
     name: letsencrypt-production
-  commonName: ${DOMAIN_NAME_COMMON}
+  commonName: emirhanaydin.com
   dnsNames:
-    - ${DOMAIN_NAME_COMMON}
-    - ${DOMAIN_NAME_WWW}
+    - emirhanaydin.com
+    - www.emirhanaydin.com
