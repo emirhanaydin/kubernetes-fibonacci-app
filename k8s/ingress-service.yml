@@ -6,9 +6,34 @@ metadata:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/use-regex: 'true'
     nginx.ingress.kubernetes.io/rewrite-target: /$1
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/ssl-redirect: 'true'
 spec:
+  tls:
+    - hosts:
+        - emirhanaydin.com
+        - www.emirhanaydin.com
+      secretName: emirhanaydin-com-tls
   rules:
-    - http:
+    - host: emirhanaydin.com
+      http:
+        paths:
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: web-cluster-ip-service
+                port:
+                  number: 3000
+          - path: /api/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: api-cluster-ip-service
+                port:
+                  number: 6000
+    - host: www.emirhanaydin.com
+      http:
         paths:
           - path: /?(.*)
             pathType: Prefix
