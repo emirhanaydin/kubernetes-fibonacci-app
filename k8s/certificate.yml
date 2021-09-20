@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ${DOMAIN_NAME_DASHED}
+  namespace: default
+spec:
+  secretName: ${DOMAIN_NAME_DASHED}-tls
+  issuerRef:
+    name: letsencrypt-production
+  commonName: ${DOMAIN_NAME_COMMON}
+  dnsNames:
+    - ${DOMAIN_NAME_COMMON}
+    - ${DOMAIN_NAME_WWW}
