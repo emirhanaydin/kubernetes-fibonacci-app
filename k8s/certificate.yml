@@ -1,12 +1,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: emirhanaydin-com
-  namespace: default
+  name: emirhanaydin-com-tls
 spec:
-  secretName: emirhanaydin-com-tls
+  secretName: emirhanaydin-com
   issuerRef:
-    name: letsencrypt-production
+    name: letsencrypt-prod
+    kind: ClusterIssuer
   commonName: emirhanaydin.com
   dnsNames:
     - emirhanaydin.com
