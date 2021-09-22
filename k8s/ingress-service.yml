@@ -15,6 +15,22 @@ spec:
         - www.emirhanaydin.com
       secretName: emirhanaydin-com-tls
   rules:
+    - http:
+        paths:
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: web-cluster-ip-service
+                port:
+                  number: 3000
+          - path: /api/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: api-cluster-ip-service
+                port:
+                  number: 6000
     - host: emirhanaydin.com
       http:
         paths:
