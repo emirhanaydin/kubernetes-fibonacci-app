@@ -1,0 +1,48 @@
+apiVersion: skaffold/v2beta23
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - k8s/api-cluster-ip-service.yml
+      - k8s/api-deployment.yml
+      # k8s/certificate.yml
+      - k8s/database-persistent-volume-claim.yml
+      - k8s/ingress-service.yml
+      # k8s/issuer.yml
+      - k8s/postgres-cluster-ip-service.yml
+      - k8s/postgres-deployment.yml
+      - k8s/redis-cluster-ip-service.yml
+      - k8s/redis-deployment.yml
+      - k8s/web-cluster-ip-service.yml
+      - k8s/web-deployment.yml
+      - k8s/worker-deployment.yml
+build:
+  local:
+    push: false
+  artifacts:
+    - image: emirhanaydin/fibonacci-app-client
+      context: ./web
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: "src/**/*"
+            dest: .
+          - src: "public/**/*"
+            dest: .
+    - image: emirhanaydin/fibonacci-app-api
+      context: ./api
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: "src/**/*"
+            dest: .
+    - image: emirhanaydin/fibonacci-app-worker
+      context: ./worker
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: "src/**/*"
+            dest: .
